@@ -78,6 +78,14 @@ class MainVC: UIViewController, UITextFieldDelegate {
         case 3:
             segmentedControllerOutlet.selectedSegmentIndex = UISegmentedControlNoSegment
             performSegue(withIdentifier: "FIBC", sender: self)
+        case 4:
+            segmentedControllerOutlet.selectedSegmentIndex = UISegmentedControlNoSegment
+            // instanciate manualVC here
+            let    manualVC = storyboard!.instantiateViewController(withIdentifier: "MyManual") as! ManualVC
+            self.loadBeam() // gets last minute changes
+            manualVC.manual_Beam = beam  // pass data
+            print("going to MANUAL")
+            self.present(manualVC, animated: true, completion: nil)
         default:
             break; 
         }
@@ -124,7 +132,11 @@ class MainVC: UIViewController, UITextFieldDelegate {
         }else if let ecd = segue.source as? FIB_C_VC {
             beam = ecd.fibC_Beam  // passes data back before FIB_C_VC destroyed
             print("unwind from FIBC")
+        }else if let ecd = segue.source as? ManualVC {
+            beam = ecd.manual_Beam  // passes data back before ManualVC destroyed
+            print("unwind from Manual")
         }
+
     }
 
 }

@@ -24,6 +24,7 @@ class ManualVC: UIViewController, UITextFieldDelegate {
         compressTextfield.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
+        print("Return to Manual VC")
         // puts beam values in textfields
         widthTextfield.text = String(manual_Beam.width)
         depthTextfield.text = String(manual_Beam.depth)

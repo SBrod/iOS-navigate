@@ -57,13 +57,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="OcK-vV-d0f">
-                                <rect key="frame" x="55" y="437" width="254" height="29"/>
+                                <rect key="frame" x="16" y="437" width="343" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Ec2 Des"/>
                                     <segment title="Ec2 Ck"/>
                                     <segment title="FIB Des"/>
                                     <segment title="FIB Ck"/>
+                                    <segment title="Manual"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentSelected:" destination="BYZ-38-t0r" eventType="valueChanged" id="asv-8e-epH"/>
@@ -174,7 +175,7 @@
         <!--ManualVC-->
         <scene sceneID="Yc4-9C-Kkh">
             <objects>
-                <viewController id="6kW-VU-FwX" customClass="ManualVC" customModule="Navigate_Pass_Data" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyManual" id="6kW-VU-FwX" customClass="ManualVC" customModule="Navigate_Pass_Data" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WgP-op-IHk"/>
                         <viewControllerLayoutGuide type="bottom" id="35F-Z2-mHt"/>
@@ -230,7 +231,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <segue destination="n60-M4-YNw" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="ohw-cX-qKv"/>
+                                    <segue destination="n60-M4-YNw" kind="unwind" unwindAction="prepareForUnwindWithSegue:" id="ZSM-eM-W0H"/>
                                 </connections>
                             </button>
                         </subviews>
