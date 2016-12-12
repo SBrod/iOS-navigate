@@ -14,6 +14,7 @@ class MainVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var compTextfield: UITextField!
     @IBOutlet weak var segmentedControllerOutlet: UISegmentedControl!
 
+    //custom object to hold textfield integers
     var beam = CustomBeamClass()
 
     override func viewDidLoad() {
@@ -37,28 +38,15 @@ class MainVC: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func loadBeam() {
-        if let width = Int(widthTextfield.text!){
-            beam.width = width
-        }
-        if let depth = Int(depthTextfield.text!){
-            beam.depth = depth
-        }
-        if let comp = Int(compTextfield.text!){
-            beam.compressive_Strength = comp
-        }
-    }
-
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.loadBeam()
+        beam.update(width: widthTextfield, depth: depthTextfield, comp: compTextfield)
         //following dismisses keyboard for any textField on page
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to:nil, from:nil, for:nil)
         return true
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.loadBeam()
+        beam.update(width: widthTextfield, depth: depthTextfield, comp: compTextfield)
         super.touchesBegan(touches, with: event)
     }
 
@@ -82,7 +70,8 @@ class MainVC: UIViewController, UITextFieldDelegate {
             segmentedControllerOutlet.selectedSegmentIndex = UISegmentedControlNoSegment
             // instanciate manualVC here
             let    manualVC = storyboard!.instantiateViewController(withIdentifier: "MyManual") as! ManualVC
-            self.loadBeam() // gets last minute changes
+            beam.update(width: widthTextfield, depth: depthTextfield, comp: compTextfield)
+ // gets last minute changes
             manualVC.manual_Beam = beam  // pass data
             print("going to MANUAL")
             self.present(manualVC, animated: true, completion: nil)
@@ -92,7 +81,8 @@ class MainVC: UIViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.loadBeam() // load beam values before going to next Controller
+        // load beam values before going to next segue Controller
+        beam.update(width: widthTextfield, depth: depthTextfield, comp: compTextfield)
         switch segue.identifier{
             // destination controller already instantiated
             // passes beam to appropriate controller object depending on destination
@@ -117,7 +107,7 @@ class MainVC: UIViewController, UITextFieldDelegate {
         }
     }
 
-    // handler FROM other view controllers
+    // handler FROM other view controllers (including ManualVC)
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
         //  check where you are unwinding from and pass the beam data
         if let ecd = segue.source as? EC2_D_VC {
